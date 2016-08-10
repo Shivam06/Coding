@@ -54,6 +54,18 @@ int printAncestors(node* head,node* key) {
 	return flag;
 }
 
+bool optimized_printAncestors(node* head, node* key) {
+	if (head == NULL)
+		return false;
+	if (head == key) 
+		return true;
+	
+	if (optimized_printAncestors(head->left,key) || optimized_printAncestors(head->right, key)) {
+		cout << head->data << " ";
+	}
+	
+}
+
 int main()
 {
 	node* head = NULL;
