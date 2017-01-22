@@ -1,2 +1,2 @@
 # Coding
-Practicing question from geeks for geeks
+Practicing question from different programming websites.
