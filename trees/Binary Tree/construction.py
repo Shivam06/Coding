@@ -13,10 +13,10 @@ def display(head):
 	print head.data
 	display(head.right)
 
-
-head = node(10)
-head.left = node(5)
-head.right = node(14)
-head.right.left = node(12)
-print "hello"
-display(head)
+if __name__ == "__main__":
+	head = node(10)
+	head.left = node(5)
+	head.right = node(14)
+	head.right.left = node(12)
+	print "hello"
+	display(head)
