@@ -23,7 +23,7 @@ class queue:
 
 	def pop(self):
 		if self.top>=0:
-			self.top-= 1
+			self.top = self.top - 1
 		else:
 			print "Queue is empty"
 
