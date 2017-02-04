@@ -43,3 +43,6 @@ cossine = dot_product/(doc1_mag*doc2_mag)
 if __name__ == "__main__":
 	print len(words1), len(words2)
 	print cossine
+
+# Output - 6771 12775
+#		   0.5970
