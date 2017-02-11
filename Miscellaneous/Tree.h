@@ -11,6 +11,8 @@ public:
 		left = NULL;
 		right = NULL;
 	}
+
+	
 };
 
 void insert(Tree* head, int x) {
@@ -38,3 +40,5 @@ void pre_traversal(Tree* head) {
 	cout << head->data << " ";
 	pre_traversal(head->right);
 }
+
+int height()
