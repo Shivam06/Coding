@@ -48,7 +48,7 @@ public:
         (this->right)->inorder_traversal();     // Method for inorder traversl of tree
     }
 
-    int height() {
+    int height() {                  
         if(this == NULL)
             return -1;
         else {
@@ -56,10 +56,31 @@ public:
         }           // Method for finding height of tree
     }
 
-    int diameter() {          // Method for finding diameter of the tree
+    /*int diameter() {          // Method for finding diameter of the tree 
+        // O(n^2) run time. I want better than this!
         if (this == NULL)
             return 0;
         int dia = (this->left)->height() + (this->right)->height() + 3;
         return max(max((this->left)->diameter(), (this->right)->diameter()), dia);
+    }*/
+
+    int diameter_helper(BST* head) {
+        static int static_dia = 0;
+        if(this == NULL)
+            return -1;
+
+        int lh = (this->left)->diameter_helper(head) + 1;
+        int rh = (this->right)->diameter_helper(head) + 1;
+        int dia = lh + rh + 1;
+        if(dia > static_dia)
+            static_dia = dia;
+        if(this != head)
+            return max(lh, rh);
+        else
+            return static_dia;
+    }
+
+    int diameter(){
+        return diameter_helper(this);
     }
 };
