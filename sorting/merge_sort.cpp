@@ -1,42 +1,52 @@
-#include "stdafx.h"
 #include<iostream>
-#include<algorithm>
-#include<vector>
-#include<set>
-#include<functional>
 #include<algorithm>
 using namespace std;
 
-typedef vector<int> vec;
-void sort(vec& v1);
-void merge_sort(vec::iterator&, vec::iterator&, int n);
+void merge(int arr[], int start, int mid, int end) {
+	int i = start, j = mid;
+	int n = end - start + 1;
+	int new_arr[n];
+	int k = 0;
+	while(i<=mid-1 && j<=end) {
+		if (arr[i] < arr[j]) {
+			new_arr[k++] = arr[i++];
+		}
+		else {
+			new_arr[k++] = arr[j++];
+		}
+	}
 
-int main()
-{
-	vector<int> s1 = { {9,7,3,2,8,5} };
-	cout << "Before merge sort" << endl;
-	for (auto itr = s1.begin(); itr != s1.end(); itr++) {
-		cout << *itr << " ";
+	if (i != mid) {
+		while (i<=mid-1) {
+			new_arr[k++] = arr[i++];
+		}
 	}
-	cout << "After merge sort" << endl;
-	sort(s1);
-	for (auto itr = s1.begin(); itr != s1.end(); itr++) {
-		cout << *itr << " ";
+
+	if (j!=end+1) {
+		while (j<=end) {
+			new_arr[k++] = arr[j++];
+		}
 	}
-	cout << endl;
+	for(int i = 0; i<n; i++)
+		arr[start+i] = new_arr[i];
+	//arr = new_arr;   why doesn't this work
+}
+
+void merge_sort(int arr[], int start, int end) {
+	int n = end - start + 1;
+	if(n==1)
+		return;
+	int mid = start + n/2;
+	merge_sort(arr, start, mid-1);
+	merge_sort(arr, mid, end);
+	merge(arr, start, mid, end);
+}
+
+
+int main() {
+	int arr[] = {1,8,2,6,5,3,0};
+	merge_sort(arr, 0, 6);;
+	for (int i=0; i<7; i++)
+		cout << arr[i] << " ";
 	return 0;
-}
-
-void sort(vec & v1) {
-	int n = v1.size();
-	merge_sort(v1.begin(), v1.end() - 1,n);
-}
-
-void merge_sort(vec::iterator& first, vec::iterator& last, int n) {
-	if (n == 1) return;
-
-	vec::iterator mid = first + n / 2 - 1;
-	merge_sort(first, mid, n / 2);
-	merge_sort(mid + 1, last, n - n / 2);;
-	inplace_merge(first, mid + 1, last + 1);
 }
