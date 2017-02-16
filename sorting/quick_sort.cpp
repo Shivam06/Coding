@@ -4,7 +4,7 @@ using namespace std;
 
 int find_pivot(int arr[], int start, int end) {
 	int piv = end, flag = 0;
-	for (int i = start; i<=end - 1; i++) {
+	for (int i = start; i<=end - 1; i++) {            // Mistake - 1 : Obviously can't start from 0
 		if (arr[i]>arr[end]) {
 			piv = i;
 			flag = 1;
@@ -16,7 +16,7 @@ int find_pivot(int arr[], int start, int end) {
 	if(!flag)
 		return piv;
 
-	for (; piv<end-1;) {  # 
+	for (; piv<end-1;) {  
 		int flag = 0;
 		for (int j = piv+1; j<end; j++) {
 			if(arr[j] < arr[end]) {
@@ -32,12 +32,12 @@ int find_pivot(int arr[], int start, int end) {
 			break;
 	}
 	swap(arr[piv], arr[end]);
-	return piv;    // Make it quicker by improving selection of pivot (randomized)
+	return piv;    // Improve worst case complexity by improving selection of pivot (randomized)
 }
 
 void quick_sort(int arr[], int start, int end) {
 	int n = end - start + 1;
-	if (n <= 1)
+	if (n <= 1)                              // Mistake 2 : n can be lesser than 1 as well as when pivot is last or first element.
 		return;
 	int piv = find_pivot(arr, start, end);
 	quick_sort(arr, start, piv-1);
