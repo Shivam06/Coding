@@ -2,6 +2,8 @@
 #include<algorithm>
 using namespace std;
 
+
+
 int find_pivot(int arr[], int start, int end) {
 	int piv = end, flag = 0;
 	for (int i = start; i<=end - 1; i++) {            // Mistake - 1 : Obviously can't start from 0
@@ -32,7 +34,14 @@ int find_pivot(int arr[], int start, int end) {
 			break;
 	}
 	swap(arr[piv], arr[end]);
-	return piv;    // Improve worst case complexity by improving selection of pivot (randomized)
+	return piv;    
+}
+
+int random_partition(int arr[], int start, int end) {   // Randomized Partition - Nice Way
+	int n = end - start + 1;
+	int new_pivot = start + rand()%n;
+	swap(arr[new_pivot], arr[end]);
+	return find_pivot(arr, start ,end);
 }
 
 void quick_sort(int arr[], int start, int end) {
@@ -45,9 +54,9 @@ void quick_sort(int arr[], int start, int end) {
 }
 
 int main() {
-	int arr[] = {0,7,2,6,4,3,1,5};
-	quick_sort(arr, 0, 7);
-	for (int i = 0; i<8; i++)
+	int arr[] = {9,8,7,6,5,4,3,2,1};
+	quick_sort(arr, 0, 8);
+	for (int i = 0; i<9; i++)
 		cout << arr[i] <<" ";
 
 	return 0;
