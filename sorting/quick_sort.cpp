@@ -1,46 +1,54 @@
-#include "stdafx.h"
-#include<algorithm>
 #include<iostream>
-#include<functional>
-#include<vector>
+#include<algorithm>
 using namespace std;
 
-typedef vector<int> vec;
-
-void sort(vec&);
-void quick_sort(vec::iterator&,vec::iterator&,int n);
-
-template<class T>
-class my_greater {
-public:
-	bool operator()(T ele1, T ele2) {
-		return ele1%4 > ele2%4;
+int find_pivot(int arr[], int start, int end) {
+	int piv = end, flag = 0;
+	for (int i = start; i<=end - 1; i++) {
+		if (arr[i]>arr[end]) {
+			piv = i;
+			flag = 1;
+			break;
+		}
+		else
+			continue;
 	}
-};
+	if(!flag)
+		return piv;
 
-int main()
-{
-	int array[8] = { 4,8,1,3,9,7,0,2 };
-	vec v1(array, array + 8);
-    
-	sort(v1);
-	for (vec::iterator itr = v1.begin(); itr != v1.end(); itr++) {
-		cout << *itr << " ";
+	for (; piv<end-1;) {  # 
+		int flag = 0;
+		for (int j = piv+1; j<end; j++) {
+			if(arr[j] < arr[end]) {
+				swap(arr[j], arr[piv]);
+				piv++;
+				flag = 1;
+				break;
+			}
+			else
+				continue;
+		}
+		if(!flag)
+			break;
 	}
-    return 0;
+	swap(arr[piv], arr[end]);
+	return piv;    // Make it quicker by improving selection of pivot (randomized)
 }
 
-void sort(vec& v) {
-	int n = v.size();
-	quick_sort(v.begin(), v.end() - 1, n);
+void quick_sort(int arr[], int start, int end) {
+	int n = end - start + 1;
+	if (n <= 1)
+		return;
+	int piv = find_pivot(arr, start, end);
+	quick_sort(arr, start, piv-1);
+	quick_sort(arr, piv+1, end);
 }
 
-void quick_sort(vec::iterator& first, vec::iterator& last, int n) {
+int main() {
+	int arr[] = {0,7,2,6,4,3,1,5};
+	quick_sort(arr, 0, 7);
+	for (int i = 0; i<8; i++)
+		cout << arr[i] <<" ";
 
-	if (n == 1) return;
-
-	vec::iterator mid = first + n / 2 - 1;
-	nth_element(first, mid, last + 1, my_greater<int>());
-	quick_sort(first, mid, n / 2);
-	quick_sort(mid + 1, last, n - n / 2);
+	return 0;
 }
