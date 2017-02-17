@@ -13,7 +13,7 @@ int max(int arr[], int n) {               // time complexity - O(n)
 } 
 
 void count_sort(int arr[], int n, int rem) {  // time complexity - O(3n + b) ~ O(n+b) where b is range (10 here)
-	int freq[10] = {0}, output[10];
+	int freq[10] = {0}, output[n];
 	for (int i = 0; i < n; i++) {
 		freq[(arr[i]/rem)%10]++;
 	}
@@ -41,7 +41,7 @@ void radix_sort(int arr[], int n) {  // time complexity - O((n+b)*log10(max(arr)
 }
 
 int main() {
-	int arr[] = {25, 11, 37, 14, 42, 6, 52};
+	int arr[] = {231354191, 553784451, 114644451, 929303281, 542140831, 206394691, 942413821, 759954411, 732936401, 485045401, 774467402, 639700152, 663036762, 238353592, 236868582, 302311892, 165696382, 175082443, 460678733, 491117313, 166390553, 302814553, 726687833, 609603203, 849774333, 100466373, 166805113, 755695033, 301521363, 850067424, 25387704};
 	int n = sizeof(arr)/sizeof(int);
 	radix_sort(arr, n);
 	for(int i=0; i<n; i++)
