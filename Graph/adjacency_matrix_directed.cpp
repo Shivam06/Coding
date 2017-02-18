@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 
+// Representation of unweighted directed graph using Adjacency array.
+
 int main() {
 	int nodes, edges;
 	cin>>nodes>>edges;
