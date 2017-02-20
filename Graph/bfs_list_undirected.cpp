@@ -21,7 +21,6 @@ void construct_adj_list(vector<int> adj[], int nodes, int edges, bool isdirected
 			adj[y].push_back(x);
 		if (!find(adj[x],y))
 			adj[x].push_back(y);
-		
 	}  // How to return vector array??
 }
 
