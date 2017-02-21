@@ -62,3 +62,19 @@ void bfs(vector<int> adj[], int nodes, int start_node) {
 		}
 	}
 }
+
+void dfs_helper(vector<int> adj[], int nodes, int start_node, int track_nodes[]) {
+	if (track_nodes[start_node] == 1)
+		return;
+	cout << start_node << " ";
+	track_nodes[start_node] = 1;
+	for (int i = 0; i < adj[start_node].size(); i++) {
+		dfs_helper(adj, nodes, adj[start_node][i], track_nodes);
+	}
+}
+
+void dfs(vector<int> adj[], int nodes, int start_node) {
+	int track_nodes[nodes + 1] = {0};
+	dfs_helper(adj, nodes, start_node, track_nodes);
+}
+
