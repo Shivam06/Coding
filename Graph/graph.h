@@ -73,8 +73,12 @@ void dfs_helper(vector<int> adj[], int nodes, int start_node, int track_nodes[])
 	}
 }
 
-void dfs(vector<int> adj[], int nodes, int start_node) {
+int dfs(vector<int> adj[], int nodes, int start_node) {
 	int track_nodes[nodes + 1] = {0};
 	dfs_helper(adj, nodes, start_node, track_nodes);
+	int sum = 0;
+	for (int i = 0; i < nodes + 1; i++)
+		sum += track_nodes[i];
+	return sum;
 }
 
