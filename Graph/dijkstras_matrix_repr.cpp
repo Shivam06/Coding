@@ -4,7 +4,7 @@
 using namespace std;
 
 
-// Time complexity - O(V*E)
+// Time complexity - O(V^E) because here I am using Adjacency matrix, therefore assuming Graph is dense. 
 int shortest_distance(int dist[], int track_nodes[]) {
 	// should return the index of the vertex with min distance from source and which hasn't been traced yet.
 	int u, min = INT_MAX;
