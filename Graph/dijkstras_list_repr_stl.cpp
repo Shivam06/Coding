@@ -40,8 +40,8 @@ void Graph::shortestPath(int src) {
 		list<pair<int, int> >:: iterator i;
 
 		for (i = adj[u].begin(); i!= adj[u].end(); i++) {
-			int v =2 ;
-            int weight = 3;
+			int v = (*i).second;
+            int weight = (*i).first;
 			if (dist[v] > dist[u] + weight) {
 				if (dist[v] != INT_MAX)
 					setds.erase(setds.find(make_pair(dist[v], v)));
@@ -76,7 +76,6 @@ int main()
     g.addEdge(6, 7, 1);
     g.addEdge(6, 8, 6);
     g.addEdge(7, 8, 7);
- 
     g.shortestPath(0);
  
     return 0;
