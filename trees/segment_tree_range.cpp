@@ -1,4 +1,6 @@
 #include<iostream>
+#include<algorithm>
+#include<climits>
 using namespace std;
 
 struct node {
@@ -30,21 +32,19 @@ void construct_seg_tree(node*& head, int arr[], int start, int end) {
 	construct_seg_tree(head->left, arr, start , mid);
 	construct_seg_tree(head->right, arr, mid + 1, end);
 	
-	head->data = head->left->data + head->right->data;
+	head->data = min(head->left->data, head->right->data);
 }	
 
-int find_sum(node* head, int l, int u) {
+int find_min(node* head, int l, int u) {
 	if (head->lower_limit >= l && head->upper_limit <= u)
 		return head->data;
 
 	else if (head->lower_limit > u ||  head->upper_limit < l)
-		return 0;
+		return INT_MAX;
 
 	else 
-		return find_sum(head->left, l, u) + find_sum(head->right, l, u);
+		return min(find_min(head->left, l, u), find_min(head->right, l, u));
 }
-
-
 
 void update_seg_tree(node*& head, int idx, int d2) {
 	
@@ -59,7 +59,7 @@ void update_seg_tree(node*& head, int idx, int d2) {
 	else
 		update_seg_tree(head->right, idx, d2);
 
-	head->data = head->left->data + head->right->data;
+	head->data = min(head->left->data, head->right->data);
 }
 
 void update (int arr[], node*& head, int idx, int d2) {
@@ -79,8 +79,9 @@ void display(node* head) {
 int main() {
 	int arr[10] = {4,2,3,1};
 	node* head = new node;
-	construct_seg_tree(head, arr, 1, 2);
-	update(arr, head, 1, 4);
-	cout << find_sum(head, 0,3) << endl;
+	construct_seg_tree(head, arr, 0, 3);
+	update(arr, head, 3, 5);
+	cout << find_min(head, 0,3) << endl;
+	//display(head);
 	return 0;
 }
