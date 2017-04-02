@@ -12,11 +12,6 @@ int main()
     char type;
     vector<int> v;
     cin>>T;
-    int** mem = new int*[300000];
-    for (int i = 0; i<300000; i++)
-        mem[i] = new int[i+1];
-    cout << mem[0][0]<< endl;
-    /*
     
     for (int i = 0; i<T; i++) {
         cin>>type;
@@ -36,16 +31,8 @@ int main()
         
         else if (type == 'q') {
             scanf("%d%d",&a,&b);
-            if (mem[a-1][b-1] > 0)
-                cout << mem[a-1][b-1] << endl;
-            else {
-                int min = *min_element(v.begin() + a - 1, v.begin() + b);
-                cout << min << endl;
-                for (int i = a-1; i<b;i++) {
-                    mem[a-1][i] = min;
-                    mem[i][b-1] = min;
-                }        
-            }
+            int min = *min_element(v.begin() + a - 1, v.begin() + b);
+            cout << min << endl;
         }
         
         else if (type == 'u') {
@@ -53,6 +40,6 @@ int main()
             v[a - 1] = b;            // constant
         }
     }
-    */
+    
     return 0;
 }
