@@ -6,7 +6,6 @@ using namespace std;
 class MinHeap {
 	vector<int> harr;
 	int count;
-
 public:
 	MinHeap(vector<int>& v) {
 		harr = v;
@@ -27,6 +26,7 @@ public:
 			cout << harr[i] << " ";
 		cout << endl;
 	}
+	MinHeap sort();
 	void insert_key(int k);
 	void min_heapify(int i);
 	void delete_key(int i);
@@ -61,7 +61,7 @@ void MinHeap::min_heapify(int i) {
 		int lidx = left(i);
 		int ridx = right(i);
 
-		if (min(harr[lidx], harr[ridx]) != harr[lidx]) {
+		if (ridx < count && min(harr[lidx], harr[ridx]) != harr[lidx]) {
 			lidx = ridx;
 		}
 
@@ -92,8 +92,10 @@ void MinHeap::delete_key(int i) {
 
 int MinHeap::extract_min() {
 	int min = get_min();
+	//cout << harr[0] << endl;
 	swap(harr[0], harr[count - 1]);
-	harr.erase(harr.end()-1);
+	//cout << harr[0] << endl;
+	//display();
 	count--;
 	min_heapify(0);
 	return min;
@@ -111,9 +113,18 @@ void MinHeap::decrease_key(int i, int new_val) {
 	}
 }
 
+MinHeap MinHeap::sort() {
+	vector<int> v;
+	while (count > 0) {
+		v.push_back(extract_min());
+	}
+	return MinHeap(v);
+}
+
 int main() {
 	vector<int> v{{5,3,1,7,2,4,0}};
 	MinHeap heap(v);
+	heap = heap.sort();
 	heap.display();
 	return 0;
 }
