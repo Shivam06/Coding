@@ -12,7 +12,7 @@ bool find(vector<int> v, int a) {
 	return false;
 };
 
-void construct_adj_list(vector<int> adj[], int nodes, int edges, bool isdirected = false) {
+void construct_adj_list(vector<int>& adj[], int nodes, int edges, bool isdirected = false) {
 	int x,y;
 	cout << "Input start and end node" << endl;
 	for(int i=0; i<edges; i++) {
