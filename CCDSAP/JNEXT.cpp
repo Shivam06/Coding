@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<queue>
 using namespace std; 
 
 void display(vector<int>& v2) {
@@ -12,18 +13,26 @@ void display(vector<int>& v2) {
 void find_next(vector<int>& v) {
 	int end = v.size()-1;
 	int i = end;
+	queue<int> q;
 	while (i>0) {
+		q.push(v[i]);
 		if (v[i] <= v[i-1]){
 			i--;
 			continue;
 		}
 		else {
-			swap(v[i],v[i-1]);
+			int idx = end;
+			while (q.front() <= v[i-1]) {
+				//cout << "front " << q.front() << endl;
+				q.pop();
+				idx--;
+			}
+			swap(v[idx], v[i-1]);
 			break;
 		}
 	}
 	if (i>0) {
-		sort(v.begin()+i, v.end());
+		reverse(v.begin()+i, v.end());
 		display(v);
 	}
 	else
@@ -39,7 +48,5 @@ int main() {
 		vec.push_back(num);
 	}
 	find_next(vec);
-	//sort(vec.begin(), vec.end());
-	//display(vec);
 	return 0;
 }
