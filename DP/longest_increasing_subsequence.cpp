@@ -2,47 +2,51 @@
 #include<climits>
 using namespace std;
 
-int longest_increasing_sub_helper(int arr[], int n, int idx, int dp[]) {
+int longest_increasing_subsequence_helper(int arr[], int n, int idx, int dp[]) {
 	if (dp[idx])
 		return dp[idx];
 
-
-	int sum, max_sum = INT_MIN;
-
+	int max_len = INT_MIN, len;
 	for (int i = 0; i < idx; i++) {
 		if (arr[i] < arr[idx]) {
-			sum  = longest_increasing_sub_helper(arr, n, i, dp) + arr[idx];
-			if (max_sum < sum)
-				max_sum = sum;
+			len = longest_increasing_subsequence_helper(arr, n, i, dp) + 1;
+			if (len > max_len)
+				max_len = len;
 		}
 		else
-			continue;													
-	}
-	if (max_sum == INT_MIN) {
-		max_sum = arr[idx];
+			continue;
 	}
 
-	dp[idx] = max_sum;
+	if (max_len == INT_MIN) {
+		dp[idx] = 1;
+		return dp[idx];
+	}
+
+	dp[idx] = max_len;
 	return dp[idx];
 }
 
-
-int longest_increasing_sub(int arr[], int n, int dp[]) {
-	dp[0] = arr[0];
-	int max = INT_MIN;
-	for (int i = n-1; i >= 0; i--) {
-		int a = longest_increasing_sub_helper(arr, n, i, dp);
-		if (max < a)
-			max = a;
+int longest_increasing_subsequence(int arr[], int n) {
+	int dp[n] = {0};
+	dp[0] = 1;
+	for (int i = 0; i < n; i++) {
+		longest_increasing_subsequence_helper(arr, n, i, dp);
 	}
+
+	int max = INT_MIN;
+	for (int i = 0; i < n; i++) {
+		cout << dp[i] << endl;
+		if (max < dp[i]){
+			max = dp[i];
+		}
+	}	
+
 	return max;
 }
 
-
 int main() {
-	int arr[] = {10, 5, 4, 3};
+	int arr[] = {0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
 	int n = sizeof(arr)/sizeof(int);
-	int dp[n] = {0};
-	cout << longest_increasing_sub(arr, n, dp) << endl;
+	cout << longest_increasing_subsequence(arr, n) << endl;
 	return 0;
 }
